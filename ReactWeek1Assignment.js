@@ -10,26 +10,24 @@ class Student {
 
 
 class Bootcamp {
-    constructor(name, level, students = [], emails = []) {
+    constructor(name, level, students = [], emails = []) { // constructor function
         this.name = name;
         this.level = level;
         this.students = students;
         this.emails = emails; // add email property to Bootcamp
     }
     registerStudent(student) {
-        //if (this.students.indexOf(student) === -1) {
-        //this.emails.push(student.email);
-        //console.log("!!!!", this.emails);
-        if (this.emails.indexOf(student.email) === -1) {
-            this.students.push(student.name);
-            console.log(`Registering ${student.name} to the bootcamp Web Dev Fundamentals`);
-            this.emails.push(student.email);
+
+        if (this.emails.indexOf(student.email) === -1) { // check if email is already in emails array
+            this.students.push(student.name); // add student name to students array
+            console.log(`Registering ${student.name} to the bootcamp Web Dev Fundamentals`); // log message
+            this.emails.push(student.email); // add email to emails array
         } else {
-            console.log(`${student.name} is already registered.`);
+            console.log(`${student.name} is already registered.`); // log message
 
         }
 
-        console.log(this.students);
+        console.log(this.students); // log students array
     }
 }
 
