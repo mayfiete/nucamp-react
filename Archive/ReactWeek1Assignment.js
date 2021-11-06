@@ -44,10 +44,12 @@ const student3 = new Student('Bob', 'check@email.com', 'javascript');
 
 console.log(student3);
 
-const bootcamp = new Bootcamp('Code 301', 'intermediate');
+const bootcamp = new Bootcamp('Code 301', 'intermediate'); //should output student array as well
 
 bootcamp.registerStudent(student1);
 
 bootcamp.registerStudent(student2);
 
-bootcamp.registerStudent(student3);
+bootcamp.registerStudent(student3); 
+
+bootcamp.students; 
