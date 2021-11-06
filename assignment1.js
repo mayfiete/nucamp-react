@@ -47,7 +47,7 @@ class Bootcamp {
         this.level = level;
         this.students = students;
     }
-    studentToRegister(student) {
+    registerStudent(student) {
         //if (this.students.includes(student.email)) {
         if (this.students.filter(enrolledStudent => student.email === enrolledStudent.email).length > 0) {
             console.log(`${student.name} is already registered`);
@@ -59,7 +59,7 @@ class Bootcamp {
     }
 }
 
-/*
+
 webDev = new Bootcamp("Web Development", "Intermediate");
 
 console.log(webDev);
@@ -69,14 +69,14 @@ student2 = new Student("Jane", "jane@test.com", "Web Development");
 student3 = new Student("Joe", "john@test.com", "Web Development");
 student4 = new Student("Mike", "Mike@test4.com", "Web Development");
 
-webDev.studentToRegister(student1);
-webDev.studentToRegister(student2);
-webDev.studentToRegister(student3);
-webDev.studentToRegister(student4);
+webDev.registerStudent(student1);
+webDev.registerStudent(student2);
+webDev.registerStudent(student3);
+webDev.registerStudent(student4);
 
 console.log(webDev);
 
-*/
+
 
 
 
