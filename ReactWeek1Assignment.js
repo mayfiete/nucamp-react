@@ -59,7 +59,7 @@ class Bootcamp {
     }
 }
 
-
+/*
 webDev = new Bootcamp("Web Development", "Intermediate");
 
 console.log(webDev);
@@ -75,6 +75,7 @@ webDev.registerStudent(student3);
 webDev.registerStudent(student4);
 
 console.log(webDev);
+*/
 
 
 
