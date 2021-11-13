@@ -8,7 +8,8 @@ class CampsiteInfo extends Component {
     constructor(props) {
         super(props);
 
-        this.campsite = { campsite: null };
+        this.campsite = { campsite: this.campsite };
+        // this.campsite = { campsite: null };
 
     };
 
