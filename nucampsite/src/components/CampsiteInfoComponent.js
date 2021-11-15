@@ -2,12 +2,7 @@
 
 import React from 'react';
 // maybe remove CardImgOverlay from here
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
-
-
-
-
-
+import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
 function RenderCampsite({ campsite }) {
     return (
