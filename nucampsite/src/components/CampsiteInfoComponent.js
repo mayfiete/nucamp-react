@@ -59,9 +59,11 @@ class CampsiteInfo extends Component {
         if (this.props.campsite) { // passing in campsite via props from parent component
             return (
                 // If so, then return an empty div that has the Bootstrap row class as an attribute.
-                <div className="row">
-                    {this.renderCampsite(this.props.campsite)}
-                    {this.renderComments(this.props.campsite.comments)}
+                <div className="container">
+                    <div className="row">
+                        {this.renderCampsite(this.props.campsite)}
+                        {this.renderComments(this.props.campsite.comments)}
+                    </div>
                 </div>
             )
 
