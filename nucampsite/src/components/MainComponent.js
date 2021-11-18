@@ -8,6 +8,9 @@ import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { CAMPSITES } from '../shared/campsites'
+import { COMMENTS } from '../shared/comments';
+import { PARTNERS } from '../shared/partners';
+import { PROMOTIONS } from '../shared/promotions';
 
 
 class Main extends Component {
@@ -15,7 +18,9 @@ class Main extends Component {
         super(props);
         this.state = {
             campsites: CAMPSITES,
-
+            comments: COMMENTS,
+            partners: PARTNERS,
+            promotions: PROMOTIONS
         };
     }
 
@@ -23,7 +28,12 @@ class Main extends Component {
     render() {
         const HomePage = () => {
             return (
-                <Home />
+                <Home
+                    campsites={this.state.campsites.filter(campsite => campsite.featured)[0]}
+                    partners={this.state.partners.filter(partner => partner.featured)[0]}
+                    promotions={this.state.promotions.filter(promotion => promotion.featured)[0]}
+
+                />
             );
         }
         return (
