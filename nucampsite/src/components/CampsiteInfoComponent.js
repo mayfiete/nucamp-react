@@ -1,8 +1,20 @@
 
 
-import React from 'react';
+import React, { Component } from 'react';
+
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
+
+class CommentForm extends Component {
+
+    render() {
+        return (
+            <button outline className="fa-lg">
+                <span className="fa fa-pencil-square-o">Submit Comment</span>
+            </button>
+        );
+    }
+}
 
 function RenderCampsite({ campsite }) {
     return (
@@ -20,24 +32,27 @@ function RenderCampsite({ campsite }) {
 function RenderComments({ comments }) {
     if (comments) {
         return (
-            <div className="col-md-5 m-1">
-                <h4>Comments</h4>
-                {
-                    comments.map(comment => {
-                        return (
-                            <div key={comment.id}>
-                                <p>{comment.text}</p>
-                                <p>{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</p>
-                            </div>
-                        )
-                    })
-                }
-            </div>
+            <React.Fragment>
+                <div className="col-md-5 m-1">
+                    <h4>Comments</h4>
+                    {
+                        comments.map(comment => {
+                            return (
+                                <div key={comment.id}>
+                                    <p>{comment.text}</p>
+                                    <p>{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</p>
+                                </div>
+                            );
+                        })
+                    }
+                    <CommentForm />
+                </div>
+                )
+            </React.Fragment>
         )
     }
     return <div > </div>
 }
-
 
 
 // Inside its render method, check if an object with the name "campsite" 
@@ -67,6 +82,7 @@ function CampsiteInfo(props) {
     }
     return <div > </div>
 }
+
 
 
 
