@@ -5,7 +5,8 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import { Button, Label, Col, Row, FormGroup } from 'reactstrap';
+import { Button, Label, Col, Row, FormGroup, Modal, ModalHeader, ModalBody, } from 'reactstrap';
+
 
 
 /* 
@@ -42,11 +43,13 @@ class CommentForm extends Component {
                 ratings: false,
                 author: false,
                 text: false
-            }
+            },
+            isModalOpen: false
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
-        
+        this.toggleModal = this.toggleModal.bind(this);
+
         /* 
         this.handleRatingChange = this.handleRatingChange.bind(this);
         this.handleAuthorChange = this.handleAuthorChange.bind(this);
@@ -55,9 +58,21 @@ class CommentForm extends Component {
     }
 
     handleSubmit(values) {
-        console.log("Current State is: " + JSON.stringify(values));
-        alert("Current State is: " + JSON.stringify(values));
+        // echo back the values
+        console.log(values);
         // event.preventDefault();
+    }
+
+    toggleModal = () => {
+        this.setState({
+            isModalOpen: !this.state.isModalOpen
+        });
+    }
+
+    handleCommentSubmit(values) {
+        this.toggleModal();
+        event.preventDefault();
+        this.props.postComment(this.props.campsiteId, values.rating, values.author, values.text);
     }
 
 
@@ -68,11 +83,14 @@ class CommentForm extends Component {
                     <span className="fa fa-pencil-square-o">Submit Comment</span>
                 </button>
                 <div>
-                    <LocalForm onSubmit={values => this.handleSubmit(values)}>
-                        <Row className="form-group">
-                            <Label htmlFor="rating" md={2}>Rating</Label>
-                            <Col md={10}>
-                                <LocalForm onSubmit={(values) => this.props.onSubmit(values.rating, values.author, values.text)}>
+
+                    <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                        <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
+                        <ModalBody>
+                            <LocalForm onSubmit={this.handleSubmit}>
+                                <div className="form-group">
+                                    <Label htmlFor="rating" md={2}>Rating</Label>
+
                                     <div className="form-group">
                                         <Control.select
                                             model=".rating"
@@ -100,14 +118,13 @@ class CommentForm extends Component {
                                             className="form-control"
                                         />
                                     </div>
-                                </LocalForm>
-                            </Col>
-                        </Row>
-                    </LocalForm>
-                </div>
-            </React.Fragment>
+                                </div>
+                            </LocalForm>
+                        </ModalBody>
+                    </Modal>
+                </div >
+            </React.Fragment >
         );
-
     }
 }
 
