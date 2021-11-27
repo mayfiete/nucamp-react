@@ -5,32 +5,8 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import { Button, Label, FormGroup, Modal, ModalHeader, ModalBody, } from 'reactstrap';
+import { Button, Label, Modal, ModalHeader, ModalBody, } from 'reactstrap';
 
-
-
-/* 
-    construct a Reactstrap Modal that contains a React Redux form for users 
-    to submit their comments as shown in the image, as detailed below. 
-
-    Implement the rating field with Control.select and options 1-5, 
-    the author field with Control.text, and the comment text field with Control.textarea and 6 rows. 
-    For the model of the author, use ".author". For the model of the rating, use ".rating". 
-    For the model of the comment text, use ".text". The id and name for each should be based on the model. 
-    Refer to ContactComponent.js for examples of using LocalForm and the Control component.
-
-    Make sure that for every Control component, the name and id properties are the same as the model, 
-    without the dot (e.g. model=".text" id="text" name="text"). This is important in how the values are 
-    passed to the handleSubmit() method and used in the corresponding action creator.
-
-    For formatting: You do not need to use the Bootstrap grid for this (so no Rows or Cols). 
-    Format this in a way similar to the Login modal form, but instead of using the 
-    FormControl component (as that is not available for use with LocalForm), 
-    use a div with className="form-group" around each set of Controls and their corresponding Labels. 
-    You should end up with three divs inside the LocalForm. For all Controls, 
-    set className="form-control".
-
-*/
 
 const required = val => val && val.length;
 const maxLength = len => val => !val || (val.length <= len);
@@ -83,20 +59,6 @@ class CommentForm extends Component {
         }
     */
 
-    /*  
-   handleAuthorChange(values) {
-       this.setState({ author: this.value });
-   }
-   
-   handleRatingChange(values) {
-       this.setState({ rating: this.value });
-   }
-   
-   handleTextChange(values) {
-       this.setState({ text: this.value });
-   }
-   */
-
     handleSubmit(values) {
         console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(values));
@@ -104,35 +66,11 @@ class CommentForm extends Component {
 
     }
 
-    /*
-        handleSubmit(event) {
-    
-            console.log('Form submitted: ');
-            console.log(this.state.rating);
-            console.log(this.state.author);
-            console.log(this.state.text);
-    
-            alert(`Rating: ${this.rating} Author: ${this.author} Text: ${this.text} `)
-            this.toggleModal();
-    
-            // event.preventDefault();
-        }
-    */
-
     toggleModal = () => {
         this.setState({
             isModalOpen: !this.state.isModalOpen
         });
     }
-
-    /*
-    handleCommentSubmit(event) {
-        alert(`Rating: ${ this.rating.value }   Author: ${ this.author.value }  Text: ${ this.text.value }`);
-        alert("Hello");
-        this.toggleModal();
-        event.preventDefault();
-    }
-    */
 
 
     render() {
@@ -148,7 +86,7 @@ class CommentForm extends Component {
                         <ModalBody>
                             <LocalForm onSubmit={values => this.handleSubmit(values)}>
                                 <div className="form-group">
-                                    <Label htmlFor="rating" md={2}>Rating</Label>
+                                    <Label htmlFor="rating" >Rating</Label>
 
                                     <div className="form-group">
                                         <Control.select
@@ -156,10 +94,9 @@ class CommentForm extends Component {
                                             model=".rating"
                                             placeholder="Rating"
                                             id="rating"
-                                            value={this.state.rating}
-                                            onChange={this.handleChange}
+                                            name="rating"
+                                            label="Rating"
                                             className="form-control"
-
 
                                         >
                                             <option>1</option>
@@ -172,10 +109,12 @@ class CommentForm extends Component {
 
                                     </div>
                                     <div className="form-group">
+                                        <Label htmlFor="author">Author</Label>
                                         <Control.text
                                             model=".author"
                                             id="author"
                                             name="author"
+                                            label="Author"
                                             placeholder="Your Name"
                                             className="form-control"
 
@@ -198,17 +137,19 @@ class CommentForm extends Component {
                                         />
                                     </div>
                                     <div className="form-group">
+                                        <Label htmlFor="text">Comment</Label>
                                         <Control.textarea
                                             model=".text"
                                             id="text"
                                             name="text"
+                                            label="Comment"
                                             rows="6"
                                             placeholder="Comment"
                                             className="form-control"
 
                                         />
                                     </div>
-                                    <span className="navbar-text ml-auto">
+                                    <span className="form-group">
                                         <Button outline type="submit" color="primary">
                                             <i /> Submit
                                         </Button>
@@ -262,9 +203,7 @@ function RenderComments({ comments }) {
 }
 
 
-// Inside its render method, check if an object with the name "campsite" 
-// (passed in via props) can be evaluated as truthy 
-// (e.g. is not null, is not undefined)
+
 function CampsiteInfo(props) {
     if (props.campsite) { // passing in campsite via props from parent component
         return (
