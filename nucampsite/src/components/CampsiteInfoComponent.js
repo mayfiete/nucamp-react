@@ -109,7 +109,7 @@ class CommentForm extends Component {
 
                                     </div>
                                     <div className="form-group">
-                                        <Label htmlFor="author">Author</Label>
+                                        <Label htmlFor="author">Your Name</Label>
                                         <Control.text
                                             model=".author"
                                             id="author"
@@ -150,7 +150,7 @@ class CommentForm extends Component {
                                         />
                                     </div>
                                     <span className="form-group">
-                                        <Button outline type="submit" color="primary">
+                                        <Button type="submit" color="primary">
                                             <i /> Submit
                                         </Button>
                                     </span>
