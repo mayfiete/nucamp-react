@@ -6,7 +6,7 @@ import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbIte
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Button, Label, Col, Row, FormGroup, Modal, ModalHeader, ModalBody, } from 'reactstrap';
-
+import Select from 'react-select'
 
 
 /* 
@@ -36,7 +36,7 @@ class CommentForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            rating: 0,
+            rating: '1',
             author: '',
             text: '',
             touched: {
@@ -47,15 +47,20 @@ class CommentForm extends Component {
             isModalOpen: false
         };
 
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
+        this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
+        this.handleRatingChange = this.handleRatingChange.bind(this);
 
         /* 
-        this.handleRatingChange = this.handleRatingChange.bind(this);
+        
         this.handleAuthorChange = this.handleAuthorChange.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         */
     }
+
+
 
     handleSubmit(values) {
         // echo back the values
@@ -70,16 +75,27 @@ class CommentForm extends Component {
     }
 
     handleCommentSubmit(values) {
+        alert(`Rating:  ${this.rating.value}   Author: ${this.author.value} 
+                Text: ${this.text.checked}`);
         this.toggleModal();
-        event.preventDefault();
-        this.props.postComment(this.props.campsiteId, values.rating, values.author, values.text);
+    }
+
+    handleRatingChange(value) {
+        this.setState({ rating: value });
     }
 
 
     render() {
+        const optionz = [
+            { value: '1', label: '1' },
+            { value: '2', label: '2' },
+            { value: '3', label: '3' },
+            { value: '4', label: '4' },
+            { value: '5', label: '5' },
+        ];
         return (
             <React.Fragment>
-                <button outline className="fa-lg">
+                <button outline className="fa-lg" onClick={this.toggleModal} >
                     <span className="fa fa-pencil-square-o">Submit Comment</span>
                 </button>
                 <div>
@@ -93,12 +109,24 @@ class CommentForm extends Component {
 
                                     <div className="form-group">
                                         <Control.select
+                                            multiple={false}
+                                            option value={this.state.rating}
                                             model=".rating"
                                             placeholder="Rating"
                                             id="rating"
-                                            name="rating"
+                                            value={this.state.rating}
+                                            onChange={this.handleRatingChange}
                                             className="form-control"
-                                        />
+
+                                        >
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+
+                                        </Control.select>
+
                                     </div>
                                     <div className="form-group">
                                         <Control.text
@@ -159,7 +187,7 @@ function RenderComments({ comments }) {
                     }
                     <CommentForm />
                 </div>
-                )
+
             </React.Fragment>
         )
     }
