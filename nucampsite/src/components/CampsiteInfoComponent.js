@@ -32,6 +32,11 @@ import Select from 'react-select'
 
 */
 
+const required = val => val && val.length;
+const maxLength = len => val => !val || (val.length <= len);
+const minLength = len => val => val && (val.length >= len);
+
+
 class CommentForm extends Component {
     constructor(props) {
         super(props);
@@ -44,28 +49,40 @@ class CommentForm extends Component {
                 author: false,
                 text: false
             },
+            touched: {
+                rating: false,
+                author: false,
+                text: false
+            },
             isModalOpen: false
         };
 
-
         this.handleSubmit = this.handleSubmit.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
-        this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
+        //this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
+        /*
         this.handleRatingChange = this.handleRatingChange.bind(this);
-
-        /* 
-        
         this.handleAuthorChange = this.handleAuthorChange.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         */
+        this.handleChange = this.handleChange.bind(this);
+
+    }
+
+    handleChange(rating, author, text) {
+
+        this.setState({
+            rating: rating,
+            author: author,
+            text: text
+        });
     }
 
 
-
     handleSubmit(values) {
-        // echo back the values
-        console.log(values);
-        // event.preventDefault();
+        alert(`Rating:  ${this.rating} Author: ${this.author} Text: ${this.text} `)
+        this.toggleModal();
+        //event.preventDefault();
     }
 
     toggleModal = () => {
@@ -74,25 +91,32 @@ class CommentForm extends Component {
         });
     }
 
-    handleCommentSubmit(values) {
-        alert(`Rating:  ${this.rating.value}   Author: ${this.author.value} 
-                Text: ${this.text.checked}`);
+    /*
+    handleCommentSubmit(event) {
+        alert(`Rating: ${ this.rating.value }   Author: ${ this.author.value }  Text: ${ this.text.value }`);
+        alert("Hello");
         this.toggleModal();
+        event.preventDefault();
+    }
+    */
+
+
+    /*
+    handleRatingChange(r) {
+        this.setState({ rating: r.target.value });
     }
 
-    handleRatingChange(value) {
-        this.setState({ rating: value });
+    handleAuthorChange(a) {
+        this.setState({ author: a.target.value });
     }
 
+
+    handleTextChange(t) {
+        this.setState({ text: t.target.value });
+    }
+*/
 
     render() {
-        const optionz = [
-            { value: '1', label: '1' },
-            { value: '2', label: '2' },
-            { value: '3', label: '3' },
-            { value: '4', label: '4' },
-            { value: '5', label: '5' },
-        ];
         return (
             <React.Fragment>
                 <button outline className="fa-lg" onClick={this.toggleModal} >
@@ -117,6 +141,7 @@ class CommentForm extends Component {
                                             value={this.state.rating}
                                             onChange={this.handleRatingChange}
                                             className="form-control"
+                                            innerRef={(input) => this.rating = input}
 
                                         >
                                             <option>1</option>
@@ -135,6 +160,23 @@ class CommentForm extends Component {
                                             name="author"
                                             placeholder="Your Name"
                                             className="form-control"
+                                            innerRef={(input) => this.author = input}
+                                            validators={{
+                                                required,
+                                                minLength: minLength(2),
+                                                maxLength: maxLength(15)
+                                            }}
+                                        />
+                                        <Errors
+                                            className="text-danger"
+                                            model=".author"
+                                            show="touched"
+                                            component="div"
+                                            messages={{
+                                                required: 'Required',
+                                                minLength: 'Must be at least 2 characters',
+                                                maxLength: 'Must be 15 characters or less'
+                                            }}
                                         />
                                     </div>
                                     <div className="form-group">
@@ -142,10 +184,17 @@ class CommentForm extends Component {
                                             model=".text"
                                             id="text"
                                             name="text"
+                                            rows="6"
                                             placeholder="Comment"
                                             className="form-control"
+                                            innerRef={(input) => this.text = input}
                                         />
                                     </div>
+                                    <span className="navbar-text ml-auto">
+                                        <Button outline onClick={this.handleSubmit}>
+                                            <i className="fa fa-sign-in-alt fa-lg" /> Submit
+                                        </Button>
+                                    </span>
                                 </div>
                             </LocalForm>
                         </ModalBody>
