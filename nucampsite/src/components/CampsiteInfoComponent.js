@@ -209,8 +209,8 @@ class CommentForm extends Component {
                                         />
                                     </div>
                                     <span className="navbar-text ml-auto">
-                                        <Button outline>
-                                            <i className="fa fa-sign-in-alt fa-lg" /> Submit
+                                        <Button outline type="submit" color="primary">
+                                            <i /> Submit
                                         </Button>
                                     </span>
                                 </div>
