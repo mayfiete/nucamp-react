@@ -5,8 +5,8 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import { Button, Label, Col, Row, FormGroup, Modal, ModalHeader, ModalBody, } from 'reactstrap';
-import Select from 'react-select'
+import { Button, Label, FormGroup, Modal, ModalHeader, ModalBody, } from 'reactstrap';
+
 
 
 /* 
@@ -59,31 +59,65 @@ class CommentForm extends Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
-        //this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
+        // this.handleChange = this.handleChange.bind(this);
+
+
+        // this.handleCommentSubmit = this.handleCommentSubmit.bind(this);    
         /*
         this.handleRatingChange = this.handleRatingChange.bind(this);
         this.handleAuthorChange = this.handleAuthorChange.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         */
-        this.handleChange = this.handleChange.bind(this);
-
     }
 
-    handleChange(rating, author, text) {
 
-        this.setState({
-            rating: rating,
-            author: author,
-            text: text
-        });
-    }
+    /*
+        handleChange(event) {
+            const target = event.target;
+            const name = target.name;
+            const value = target.value
+    
+            this.setState({
+                [name]: value
+            });
+        }
+    */
 
+    /*  
+   handleAuthorChange(values) {
+       this.setState({ author: this.value });
+   }
+   
+   handleRatingChange(values) {
+       this.setState({ rating: this.value });
+   }
+   
+   handleTextChange(values) {
+       this.setState({ text: this.value });
+   }
+   */
 
     handleSubmit(values) {
-        alert(`Rating:  ${this.rating} Author: ${this.author} Text: ${this.text} `)
+        console.log('Current State is: ' + JSON.stringify(values));
+        alert('Current State is: ' + JSON.stringify(values));
         this.toggleModal();
-        //event.preventDefault();
+
     }
+
+    /*
+        handleSubmit(event) {
+    
+            console.log('Form submitted: ');
+            console.log(this.state.rating);
+            console.log(this.state.author);
+            console.log(this.state.text);
+    
+            alert(`Rating: ${this.rating} Author: ${this.author} Text: ${this.text} `)
+            this.toggleModal();
+    
+            // event.preventDefault();
+        }
+    */
 
     toggleModal = () => {
         this.setState({
@@ -101,21 +135,6 @@ class CommentForm extends Component {
     */
 
 
-    /*
-    handleRatingChange(r) {
-        this.setState({ rating: r.target.value });
-    }
-
-    handleAuthorChange(a) {
-        this.setState({ author: a.target.value });
-    }
-
-
-    handleTextChange(t) {
-        this.setState({ text: t.target.value });
-    }
-*/
-
     render() {
         return (
             <React.Fragment>
@@ -127,21 +146,20 @@ class CommentForm extends Component {
                     <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                         <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                         <ModalBody>
-                            <LocalForm onSubmit={this.handleSubmit}>
+                            <LocalForm onSubmit={values => this.handleSubmit(values)}>
                                 <div className="form-group">
                                     <Label htmlFor="rating" md={2}>Rating</Label>
 
                                     <div className="form-group">
                                         <Control.select
                                             multiple={false}
-                                            option value={this.state.rating}
                                             model=".rating"
                                             placeholder="Rating"
                                             id="rating"
                                             value={this.state.rating}
-                                            onChange={this.handleRatingChange}
+                                            onChange={this.handleChange}
                                             className="form-control"
-                                            innerRef={(input) => this.rating = input}
+
 
                                         >
                                             <option>1</option>
@@ -160,7 +178,7 @@ class CommentForm extends Component {
                                             name="author"
                                             placeholder="Your Name"
                                             className="form-control"
-                                            innerRef={(input) => this.author = input}
+
                                             validators={{
                                                 required,
                                                 minLength: minLength(2),
@@ -187,11 +205,11 @@ class CommentForm extends Component {
                                             rows="6"
                                             placeholder="Comment"
                                             className="form-control"
-                                            innerRef={(input) => this.text = input}
+
                                         />
                                     </div>
                                     <span className="navbar-text ml-auto">
-                                        <Button outline onClick={this.handleSubmit}>
+                                        <Button outline>
                                             <i className="fa fa-sign-in-alt fa-lg" /> Submit
                                         </Button>
                                     </span>
