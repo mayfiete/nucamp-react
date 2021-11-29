@@ -1,4 +1,4 @@
-import { PROMOTIONS } from '../constants/promotions';
+import { PROMOTIONS } from '../shared/promotions';
 
 export const Promotions = (state = PROMOTIONS, action) => {
     switch (action.type) {

@@ -1,4 +1,4 @@
-import { PARTNERS } from '../constants/partners';
+import { PARTNERS } from '../shared/partners';
 
 export const Partners = (state = PARTNERS, action) => {
     switch (action.type) {
