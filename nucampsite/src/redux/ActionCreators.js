@@ -1,5 +1,5 @@
 import * as ActionTypes from './ActionTypes';
-import { baseUrl } from '../redux/baseUrl';
+import { baseUrl } from '../shared/baseUrl';
 
 export const addComment = (campsiteId, rating, author, text) => ({
     type: ActionTypes.ADD_COMMENT,
@@ -16,7 +16,7 @@ export const fetchCampsites = () => dispatch => {
 
     return fetch(baseUrl + 'campsites')
         .then(response => response.json())
-        .then(campsites => dispatch(addCampsites(campsites)))
+        .then(campsites => dispatch(addCampsites(campsites)));
 };
 
 export const campsitesLoading = () => ({
@@ -32,21 +32,18 @@ export const addCampsites = (campsites) => ({
     type: ActionTypes.ADD_CAMPSITES,
     payload: campsites
 });
-
-// thunk action creator
 export const fetchComments = () => dispatch => {
     return fetch(baseUrl + 'comments')
         .then(response => response.json())
-        // dispatched to be added to the redux store
         .then(comments => dispatch(addComments(comments)));
 };
 
-export const commentsFailed = (errMess) => ({
+export const commentsFailed = errMess => ({
     type: ActionTypes.COMMENTS_FAILED,
     payload: errMess
 });
 
-export const addComments = (comments) => ({
+export const addComments = comments => ({
     type: ActionTypes.ADD_COMMENTS,
     payload: comments
 });
@@ -56,7 +53,7 @@ export const fetchPromotions = () => dispatch => {
 
     return fetch(baseUrl + 'promotions')
         .then(response => response.json())
-        .then(promotions => dispatch(addPromotions(promotions)))
+        .then(promotions => dispatch(addPromotions(promotions)));
 };
 
 export const promotionsLoading = () => ({
