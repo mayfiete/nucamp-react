@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Button, Label, Modal, ModalHeader, ModalBody, } from 'reactstrap';
@@ -27,11 +27,6 @@ class CommentForm extends Component {
             text: '',
             touched: {
                 ratings: false,
-                author: false,
-                text: false
-            },
-            touched: {
-                rating: false,
                 author: false,
                 text: false
             },
@@ -79,7 +74,6 @@ class CommentForm extends Component {
                                             name="rating"
                                             label="Rating"
                                             className="form-control"
-
                                         >
                                             <option>1</option>
                                             <option>2</option>
