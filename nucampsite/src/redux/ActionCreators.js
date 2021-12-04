@@ -227,9 +227,7 @@ export const postFeedback = (firstName, lastName, phoneNum, email, agree, contac
         .then(response => response.json())
         .then(
             response => {
-                alert('Thank you for your feedback!');
-                alert(JSON.stringify(response));
-
+                alert(`Thank you for your feedback!\n${JSON.stringify(response)}`);
             }
         )
         .catch(error => {
