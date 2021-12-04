@@ -78,16 +78,14 @@ function PartnerList(props, isLoading, errMess) {
     });
 
     if (isLoading) {
-        return <Loading />;
+        <Loading />;
     }
     if (errMess) {
         return <h4 className="col">{errMess}</h4>
     }
     return (
-        <div className="col mt-4">
-            <Media>
-                {partners}
-            </Media>
+        <div className="col mt-4" Media>
+            {partners}
         </div>
     );
 }
